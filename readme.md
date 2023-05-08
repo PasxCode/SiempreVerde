@@ -8,5 +8,5 @@ Este software ha sido desarrollado con Borland Delphi 7 y usando base de dato lo
 
 ## Autores:
 
-Francisco J. Suarez
+Francisco J. Suarez<br>
 Fco. G. Velasco
