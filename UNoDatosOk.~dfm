@@ -1,0 +1,167 @@
+object FNoDatosOk: TFNoDatosOk
+  Left = 347
+  Top = 181
+  BorderIcons = []
+  BorderStyle = bsNone
+  Caption = 'Los datos no son correctos'
+  ClientHeight = 330
+  ClientWidth = 428
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  FormStyle = fsMDIChild
+  Menu = MainMenu1
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  Visible = True
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 48
+    Top = 48
+    Width = 333
+    Height = 13
+    Caption = 
+      'Se ha detectado que los datos de su empresa faltan o son incorre' +
+      'ctos.'
+  end
+  object Label2: TLabel
+    Left = 48
+    Top = 64
+    Width = 329
+    Height = 13
+    Caption = 
+      'Es  necesario que  existan  los  datos  requeridos de su  empres' +
+      'a para'
+  end
+  object Label3: TLabel
+    Left = 48
+    Top = 80
+    Width = 165
+    Height = 13
+    Caption = 'poder hacer uso de este programa.'
+  end
+  object Label4: TLabel
+    Left = 48
+    Top = 128
+    Width = 334
+    Height = 13
+    Caption = 
+      'Pulse  el  bot'#243'n  "DESDE  COPIA"  para  restaurar  la  base  de ' +
+      ' datos '
+  end
+  object Label5: TLabel
+    Left = 48
+    Top = 144
+    Width = 139
+    Height = 13
+    Caption = 'desde su copia de seguridad.'
+  end
+  object Label6: TLabel
+    Left = 48
+    Top = 192
+    Width = 330
+    Height = 13
+    Caption = 
+      'Pulse el bot'#243'n "INTRODUCIR DATOS"  para abrir el di'#225'logo de dato' +
+      's'
+  end
+  object Label7: TLabel
+    Left = 48
+    Top = 208
+    Width = 330
+    Height = 13
+    Caption = 
+      'generales  de  su empresa.  Vd.  podr'#225'  insertar  o  modificar s' +
+      'us datos'
+  end
+  object Label8: TLabel
+    Left = 32
+    Top = 112
+    Width = 222
+    Height = 13
+    Caption = 'Para restaurar una copia de seguridad:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold, fsUnderline]
+    ParentFont = False
+  end
+  object Label9: TLabel
+    Left = 32
+    Top = 176
+    Width = 307
+    Height = 13
+    Caption = 'Para introducir manualmente los datos de su empresa:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold, fsUnderline]
+    ParentFont = False
+  end
+  object Label10: TLabel
+    Left = 104
+    Top = 248
+    Width = 225
+    Height = 20
+    Caption = #191'Qu'#233' operaci'#243'n desea realizar?'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label11: TLabel
+    Left = 128
+    Top = 8
+    Width = 131
+    Height = 24
+    Caption = #161' ATENCI'#211'N !'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label12: TLabel
+    Left = 45
+    Top = 224
+    Width = 69
+    Height = 13
+    Caption = ' manualmente.'
+  end
+  object BManual: TButton
+    Left = 40
+    Top = 288
+    Width = 145
+    Height = 25
+    Caption = 'Introducir datos'
+    TabOrder = 0
+    OnClick = BManualClick
+  end
+  object BCopia: TButton
+    Left = 240
+    Top = 288
+    Width = 145
+    Height = 25
+    Caption = 'Desde Copia'
+    TabOrder = 1
+    OnClick = BCopiaClick
+  end
+  object MainMenu1: TMainMenu
+    Left = 344
+    Top = 32
+    object About1: TMenuItem
+      Caption = 'About'
+    end
+  end
+end

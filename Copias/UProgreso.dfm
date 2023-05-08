@@ -1,0 +1,46 @@
+object FProgreso: TFProgreso
+  Left = 353
+  Top = 187
+  BorderIcons = []
+  BorderStyle = bsDialog
+  Caption = 'Copia de seguridad en curso...'
+  ClientHeight = 136
+  ClientWidth = 371
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  Visible = True
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Button1: TButton
+    Left = 304
+    Top = 104
+    Width = 61
+    Height = 21
+    Caption = 'Cancelar'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Animate1: TAnimate
+    Left = 8
+    Top = 8
+    Width = 272
+    Height = 60
+    Active = True
+    CommonAVI = aviCopyFile
+    StopFrame = 20
+  end
+  object PTotal: TProgressBar
+    Left = 8
+    Top = 104
+    Width = 289
+    Height = 13
+    TabOrder = 2
+  end
+end

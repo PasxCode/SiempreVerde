@@ -1,0 +1,203 @@
+unit UPrincipal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, ComCtrls, ToolWin, ImgList, DB, DBTables, Wwtable,
+  CustomizeDlg;
+
+type
+  TFPrincipal = class(TForm)
+    MPrincipal: TMainMenu;
+    Clientes1: TMenuItem;
+    TBPrincipal: TToolBar;
+    ToolButton1: TToolButton;
+    Imagenes: TImageList;
+    Facturacion: TMenuItem;
+    Albaranes: TMenuItem;
+    Presupuestos1: TMenuItem;
+    Salir1: TMenuItem;
+    Generales1: TMenuItem;
+    Datosdelaempresa: TMenuItem;
+    TG: TwwTable;
+    TGCifEmp: TStringField;
+    TGNomEmp: TStringField;
+    TGDirEmp: TStringField;
+    TGCp: TFloatField;
+    TGPobEmp: TStringField;
+    TGProEmp: TStringField;
+    TGTel1Emp: TFloatField;
+    TGTel2Emp: TFloatField;
+    TGFaxEmp: TFloatField;
+    TGEmaEmp: TStringField;
+    TGWeb: TStringField;
+    TGAnno: TFloatField;
+    TGConFac: TFloatField;
+    TGConAlb: TFloatField;
+    TGConPre: TFloatField;
+    Facturas: TMenuItem;
+    HistoricoFac: TMenuItem;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
+    ToolButton7: TToolButton;
+    ToolButton8: TToolButton;
+    ToolButton9: TToolButton;
+    ToolButton10: TToolButton;
+    ToolButton11: TToolButton;
+    ToolButton12: TToolButton;
+    ToolButton13: TToolButton;
+    Acercade1: TMenuItem;
+    Albaranes1: TMenuItem;
+    HistricodeAlbaranes1: TMenuItem;
+    ToolButton14: TToolButton;
+    ToolButton15: TToolButton;
+    BalanceFac: TMenuItem;
+    procedure FacturasClick(Sender: TObject);
+    procedure AlbaranesClick(Sender: TObject);
+    procedure Presupuestos1Click(Sender: TObject);
+    procedure Salir1Click(Sender: TObject);
+    procedure DatosdelaempresaClick(Sender: TObject);
+    procedure HistoricoFacClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure Acercade1Click(Sender: TObject);
+    procedure HistricodeAlbaranes1Click(Sender: TObject);
+    procedure Clientes1Click(Sender: TObject);
+    procedure BalanceFacClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FPrincipal: TFPrincipal;
+  EsHistoricoFac, EsHistoricoAlb: boolean;
+implementation
+
+uses UClientes, UFacturas, UAlbaranes, UPresupuestos, UReport,
+  UGenerales, DateUtils, UNoDatosOk, UAbout, UFiltLisCli, UCalculoFac;
+
+{$R *.dfm}
+
+procedure TFPrincipal.FacturasClick(Sender: TObject);
+begin
+  EsHistoricoFac:=false;
+  if FFacturas=nil then
+     FFacturas:=TFFacturas.Create(nil);
+  
+end;
+
+procedure TFPrincipal.AlbaranesClick(Sender: TObject);
+begin
+  EsHistoricoAlb:=false;
+  if FAlbaranes=nil then
+     FAlbaranes:=TFAlbaranes.Create(nil);
+end;
+
+procedure TFPrincipal.Presupuestos1Click(Sender: TObject);
+begin
+ if FPresupuestos=Nil then
+     FPresupuestos:=TFPresupuestos.Create(Nil);
+end;
+
+procedure TFPrincipal.Salir1Click(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TFPrincipal.DatosdelaempresaClick(Sender: TObject);
+begin
+  if FGenerales=nil then
+    FGenerales:=TFGenerales.Create(nil);
+end;
+
+procedure TFPrincipal.HistoricoFacClick(Sender: TObject);
+begin
+  EsHistoricoFac:=true;
+  if FFacturas=nil then
+     FFacturas:=TFFacturas.Create(nil);
+
+end;
+
+procedure TFPrincipal.FormShow(Sender: TObject);
+ var Fecha: TDateTime;
+     Anio,mes,dia:word;
+
+begin
+  TG.Open;
+  
+  if TGNomEmp.Value<>'' then Caption:='Gestión '+TGNomEmp.Value
+  else Caption:='Gestión ()';
+
+  if (TG.RecordCount=0) OR (TGCifEmp.AsString='')or(TGNomEmp.AsString='')or(TGDirEmp.AsString='')or
+     (TGCp.AsString='')or(TGPobEmp.AsString='')or(TGProEmp.AsString='')or
+     (TGAnno.AsString='')or(TGConFac.AsString='')or(TGConAlb.AsString='')or
+     (TGConPre.AsString='') then
+      begin
+         FNoDatosOk:=TFNoDatosOk.Create(nil);
+         FNoDatosOK.ShowModal;
+         FNoDatosOK.Free;
+         FGenerales:=TFGenerales.Create(Nil);
+         Exit;
+      end;
+  Fecha:=Now;
+  DecodeDate(Fecha,anio,mes,dia);
+  if (Anio mod 100)>TGAnno.Value then
+
+      if MessageDlg('El año  de facturación en  la base de  datos no es  el año actual.'+#13+
+                    'Se le  recuerda que  todas las  facturas que  introduzca  en este'+#13+
+                    'momento corresponderán al año de facturación anterior.'+#13+#13+
+                    'Si tiene facturas pendientes  no cambie aun  el año de facturacón,'+#13+
+                    'introduzca las  facturas que  faltan  del año anterior y reinicie'+#13+
+                    'el programa para  actualizar la base de datos y comenzar'+#13+
+                    'un nuevo año.'+#13+#13+
+                    'Si no tiene facturas pendientes comience un nuevo año de facturación.'+#13+#13+#13+
+                    '           ¿DESEA COMENZAR EL NUEVO AÑO DE FACTURACIÓN?    ',
+                    mtConfirmation,[mbYes,mbNo],0)=mrYes then
+               if MessageDlg('Este cambio en la base de datos es IRREVERSIBLE.'+#13+
+               'Los contadores de facturas y albaranes será reiniciados.'+#13+#13+
+               '¿Está realmente seguro de querer comenzar un nuevo año de facturacón?',
+               mtConfirmation,[mbYes,mbNo],0)=mrYes then
+                 begin
+                     TG.Edit;
+                     TGAnno.Value:=TGAnno.Value+1;
+                     TGConFac.AsInteger:=0;
+                     TGConAlb.AsInteger:=0;
+                     TG.Post;
+                 end;
+  TG.Close;
+end;
+
+procedure TFPrincipal.Acercade1Click(Sender: TObject);
+begin
+ if FAbout=nil then
+    FAbout:=TFAbout.Create(nil);
+ FAbout.Show;
+end;
+
+procedure TFPrincipal.HistricodeAlbaranes1Click(Sender: TObject);
+begin
+  EsHistoricoAlb:=true;
+  if FAlbaranes=nil then
+     FAlbaranes:=TFAlbaranes.Create(nil);
+end;
+
+procedure TFPrincipal.Clientes1Click(Sender: TObject);
+begin
+  if FClientes=nil then
+     FClientes:=TFClientes.Create(nil);
+  FClientes.Show;
+end;
+
+procedure TFPrincipal.BalanceFacClick(Sender: TObject);
+begin
+  if FCalculoFac=nil then
+     FCalculoFac:=TFCalculoFac.Create(nil);
+  FCalculoFac.ShowModal;
+end;
+
+end.

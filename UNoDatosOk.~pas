@@ -1,0 +1,77 @@
+unit UNoDatosOk;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Menus;
+
+type
+  TFNoDatosOk = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    BManual: TButton;
+    BCopia: TButton;
+    Label12: TLabel;
+    MainMenu1: TMainMenu;
+    About1: TMenuItem;
+    procedure BManualClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure BCopiaClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FNoDatosOk: TFNoDatosOk;
+
+implementation
+
+uses UGenerales, UPrincipal, UCopSeg;
+
+{$R *.dfm}
+
+procedure TFNoDatosOk.BManualClick(Sender: TObject);
+begin
+  if FGenerales=nil then
+     FGenerales:=TFGenerales.Create(nil);
+  FGenerales.Show;
+  close;
+end;
+
+procedure TFNoDatosOk.FormCreate(Sender: TObject);
+begin
+  FPrincipal.TBPrincipal.Visible:=false;
+end;
+
+procedure TFNoDatosOk.BCopiaClick(Sender: TObject);
+begin
+  if FCopSeg=nil then
+     FCopSeg:=TFCopSeg.Create(nil);
+  FCopSeg.Show;
+  FCopSeg.PageControl1.TabIndex:=1;
+  FCopSeg.TabSheet1.TabVisible:=false;
+  close;
+
+
+end;
+
+procedure TFNoDatosOk.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  action:=caFree;
+  FNoDatosOk:=nil;
+end;
+
+end.
